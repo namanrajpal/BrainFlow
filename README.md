@@ -57,18 +57,29 @@ Every node streams in one-by-one. Every run generates a different structure. The
 ## Demo
 
 <p align="center">
-  <img src="demo/mindmap_generation.gif" alt="A topic streams into a full mind map, node by node" width="820" />
+  <a href="https://youtu.be/TzcZk3a4aF0">
+    <img src="https://img.youtube.com/vi/TzcZk3a4aF0/maxresdefault.jpg" alt="Watch the BrainFlow walkthrough on YouTube" width="680" />
+  </a>
   <br/>
-  <sub><strong>The Bloom</strong> — type a topic, watch the canvas grow</sub>
+  <sub>🎥 <a href="https://youtu.be/TzcZk3a4aF0">Watch the full walkthrough on YouTube</a></sub>
 </p>
 
-<p align="center">
-  <img src="demo/expand_an_idea.gif" alt="Clicking expand on a node adds child ideas underneath" width="820" />
-  <br/>
-  <sub><strong>The Deep Dive</strong> — click any node, hit Expand, more ideas stream in</sub>
-</p>
+### Features in Motion
 
-> 🎥 Full walkthrough: [`demo/walkthrough.mp4`](demo/walkthrough.mp4)
+<table align="center">
+  <tr>
+    <td align="center" width="50%">
+      <img src="demo/mindmap_generation.gif" alt="Generating a mind map from a topic" width="420" />
+      <br/>
+      <sub><strong>Mind Map Generation</strong> — type a topic, nodes stream in one by one</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="demo/expand_an_idea.gif" alt="Expanding an existing idea into child nodes" width="420" />
+      <br/>
+      <sub><strong>Expand an Idea</strong> — right-click any node to grow it deeper</sub>
+    </td>
+  </tr>
+</table>
 
 ### The Six Magic Moments
 
@@ -80,9 +91,6 @@ Every node streams in one-by-one. Every run generates a different structure. The
 | 4 | **The Connection** | Agent discovers non-obvious links between distant nodes |
 | 5 | **The Mode Switch** | Switch from Brainstorm → Architect → same canvas, different thinker |
 | 6 | **The Prioritize** | All nodes recolor green/yellow/red with feasibility scores |
-
-<!-- SCREENSHOT PLACEHOLDER: Before and after prioritize -->
-> 📸 **TODO: Add screenshot showing nodes before/after prioritization (color change)**
 
 ---
 
@@ -162,9 +170,6 @@ useCopilotAction({
 })
 ```
 
-<!-- SCREENSHOT PLACEHOLDER: Ghost node indicator during generation -->
-> 📸 **TODO: Add screenshot showing the ghost node "Adding: ..." indicator**
-
 ---
 
 ## Agent Modes
@@ -184,9 +189,6 @@ The same canvas, four different thinkers. Switch mid-session — the graph persi
 
 Under the hood, mode switching = new AG-UI session (new `threadId`) with a different system prompt. The canvas state carries over. In production, each mode could be a **completely separate ACP agent** — a Perplexity-style researcher, a coding architect, a red-team critic. The AG-UI protocol means the canvas doesn't care who's driving it.
 
-<!-- SCREENSHOT PLACEHOLDER: Mode selector dropdown -->
-> 📸 **TODO: Add screenshot of mode selector with different mode active**
-
 ---
 
 ## Interactions
@@ -199,9 +201,6 @@ Under the hood, mode switching = new AG-UI session (new `threadId`) with a diffe
 | **Find Connections** | Click "Find Connections" | Draws edges between non-obvious related nodes |
 | **Prioritize** | Click "Prioritize" | Scores all nodes 1-10, recolors green/yellow/red |
 | **Custom Expand** | Right-click → type direction | Expands in a specific direction you choose |
-
-<!-- SCREENSHOT PLACEHOLDER: Right-click context menu on a node -->
-> 📸 **TODO: Add screenshot of right-click context menu**
 
 ---
 
