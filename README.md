@@ -24,6 +24,10 @@
   <img src="https://img.shields.io/badge/React_Flow-Canvas-purple?style=for-the-badge" alt="React Flow" />
 </p>
 
+<p align="center">
+  <sub>Built solo in ~4 hours for the <a href="https://seattle.aitinkerers.org/p/generative-ui-global-hackathon-agentic-interfaces">Generative UI Global Hackathon</a> · AI Tinkerers Seattle</sub>
+</p>
+
 ---
 
 ## The Problem
