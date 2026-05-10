@@ -60,9 +60,9 @@ def ask_user(question: str, options: list[str]) -> str:
 
 
 @tool
-def elaborate_node(node_id: str, title: str, summary: str, sections: list[dict], agent_name: str = "Strategist") -> str:
-    """Generate a rich elaboration document for a node. Can be called MULTIPLE TIMES to progressively add sections. Each section has a 'heading' and 'content' field. agent_name identifies which specialist generated this batch."""
-    return f"[{agent_name}] Elaborated node {node_id} with {len(sections)} sections"
+def elaborate_node(node_id: str, title: str, summary: str, sections_json: str, agent_name: str = "Strategist") -> str:
+    """Generate a rich elaboration document for a node. sections_json is a JSON string containing an array of objects with 'heading' and 'content' fields. Can be called MULTIPLE TIMES to progressively add sections. agent_name identifies which specialist generated this batch."""
+    return f"[{agent_name}] Elaborated node {node_id} with sections"
 
 
 @tool

@@ -15,7 +15,7 @@ import {
   type NodeMouseHandler,
 } from "@xyflow/react"
 import "@xyflow/react/dist/style.css"
-import { useCopilotAction, useCopilotReadable } from "@copilotkit/react-core"
+import { useCopilotAction, useCopilotReadable, useCopilotChat } from "@copilotkit/react-core"
 
 import MindMapNode from "./MindMapNode"
 import GhostNode from "./GhostNode"
@@ -44,6 +44,8 @@ function BrainFlowCanvasInner() {
   const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null)
   const { fitView } = useReactFlow()
   const prevNodeCount = useRef(nodes.length)
+  // Agent thinking state — drives edge animation (static when idle, flowing when thinking)
+  const { isLoading: isAgentThinking } = useCopilotChat()
 
   // AG-UI Feature: useCopilotReadable — automatically share canvas state with the agent
   // The agent always knows what's on the canvas without manual serialization
@@ -257,7 +259,6 @@ function BrainFlowCanvasInner() {
 
   // elaborate_node — generates a rich document panel on the right (APPENDS sections)
   const setElaboration = useElaborationStore((s) => s.setElaboration)
-  const appendSections = useElaborationStore((s) => s.appendSections)
 
   useCopilotAction({
     name: "elaborate_node",
@@ -266,21 +267,52 @@ function BrainFlowCanvasInner() {
       { name: "node_id", type: "string", required: true },
       { name: "title", type: "string", required: true },
       { name: "summary", type: "string", required: true },
-      { name: "sections", type: "object[]", required: true },
+      { name: "sections_json", type: "string", required: true, description: "JSON string of sections array. Each section: {heading: string, content: string}" },
       { name: "agent_name", type: "string" },
     ],
-    handler: async ({ node_id, title, summary, sections, agent_name }) => {
+    handler: async ({ node_id, title, summary, sections_json, agent_name }) => {
       try {
+        let sections: Array<{heading?: string; content?: string}> = []
+        try {
+          sections = JSON.parse(sections_json || "[]")
+        } catch {
+          sections = [{ heading: "Analysis", content: sections_json || "" }]
+        }
+
         const currentElaboration = useElaborationStore.getState().activeElaboration
-        const newSections = (sections || []).map((s: { heading?: string; content?: string }) => ({
+        const newSections = sections.map((s) => ({
           heading: s.heading || "Section",
           content: s.content || "",
           agentName: agent_name || "Strategist",
         }))
 
         if (currentElaboration && currentElaboration.nodeId === node_id) {
-          // APPEND to existing elaboration
-          appendSections(node_id, newSections)
+          // APPEND to existing elaboration — dedupe by heading (case-insensitive)
+          // and upgrade the placeholder summary once the agent provides a real one.
+          const existingHeadings = new Set(
+            currentElaboration.sections.map((s) => s.heading.toLowerCase().trim())
+          )
+          const deduped = newSections.filter(
+            (s) => !existingHeadings.has(s.heading.toLowerCase().trim())
+          )
+
+          const placeholderSummaries = new Set([
+            "Generating comprehensive analysis...",
+            "Generating analysis...",
+          ])
+          const shouldUpgradeSummary =
+            placeholderSummaries.has(currentElaboration.summary) &&
+            summary &&
+            summary.trim() !== "" &&
+            !placeholderSummaries.has(summary)
+
+          useElaborationStore.setState({
+            activeElaboration: {
+              ...currentElaboration,
+              summary: shouldUpgradeSummary ? summary : currentElaboration.summary,
+              sections: [...currentElaboration.sections, ...deduped],
+            },
+          })
         } else {
           // First call — create new elaboration
           setElaboration({
@@ -322,7 +354,8 @@ function BrainFlowCanvasInner() {
 
   // --- Canvas event handlers ---
 
-  // Transform edges to apply React Flow styling based on edge data
+  // Transform edges to apply React Flow styling based on edge data.
+  // Edges are static by default and only animate (flowing dashes) while the agent is thinking.
   const styledEdges: Edge[] = useMemo(() => {
     return edges.map((edge) => {
       const baseEdge: Edge = {
@@ -330,7 +363,7 @@ function BrainFlowCanvasInner() {
         source: edge.source,
         target: edge.target,
         label: edge.label,
-        animated: edge.animated ?? false,
+        animated: isAgentThinking,
       }
 
       if (edge.style === "dashed") {
@@ -341,7 +374,7 @@ function BrainFlowCanvasInner() {
 
       return baseEdge
     })
-  }, [edges])
+  }, [edges, isAgentThinking])
 
   const onNodesChange = useCallback((changes: NodeChange[]) => {
     useCanvasStore.setState((state) => ({
@@ -357,8 +390,10 @@ function BrainFlowCanvasInner() {
 
   const onNodeClick = useCallback((_event: React.MouseEvent, node: Node) => {
     useCanvasStore.setState({ selectedNodeId: node.id })
-    setContextMenu(null) // Close context menu on regular click
-  }, [])
+    setContextMenu(null)
+    // Zoom in and center on the clicked node
+    fitView({ nodes: [node], padding: 0.5, duration: 400, maxZoom: 1.5 })
+  }, [fitView])
 
   const onNodeContextMenu: NodeMouseHandler = useCallback((event, node) => {
     event.preventDefault()

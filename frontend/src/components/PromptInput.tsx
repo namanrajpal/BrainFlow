@@ -47,6 +47,7 @@ function PromptInput() {
           className="pointer-events-auto w-full max-w-2xl px-4"
         >
           <div className="text-center mb-6">
+            <img src="/logo.png" alt="BrainFlow" className="w-16 h-16 mx-auto mb-3" />
             <h1 className="text-3xl font-bold text-white mb-2">BrainFlow</h1>
             <p className="text-gray-400 text-sm">AI brainstorming partner on an infinite canvas</p>
           </div>
@@ -65,7 +66,7 @@ function PromptInput() {
               disabled={isLoading || !input.trim()}
               className="px-5 py-2 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
-              {isLoading ? "..." : "Go"}
+              {isLoading ? "..." : "Add Topic"}
             </button>
           </div>
           <p className="text-center text-[11px] text-gray-600 mt-3">

@@ -37,6 +37,12 @@ function AppContent() {
       <PromptInput />
       <AgentStatus />
       {nodes.length > 0 && <ModeSelector />}
+      {nodes.length > 0 && (
+        <button className="fixed bottom-6 right-6 z-50 flex items-center gap-2 px-4 py-2.5 bg-gray-900/90 backdrop-blur-sm border border-gray-700 rounded-xl shadow-lg text-sm text-gray-300 hover:text-white hover:border-gray-500 transition-colors">
+          <span className="w-4 h-4 flex items-center justify-center rounded-full bg-blue-500 text-white text-[10px] font-bold">+</span>
+          Add New Topic
+        </button>
+      )}
       <ErrorToast />
       <DetailPanel />
       {activeElaboration && <ElaborationPanel />}

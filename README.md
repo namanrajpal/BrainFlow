@@ -1,6 +1,6 @@
 
 <p align="center">
-  <img src="frontend/public/favicon.svg" width="80" alt="BrainFlow Logo" />
+  <img src="frontend/public/logo.png" width="120" alt="BrainFlow Logo" />
 </p>
 
 <h1 align="center">BrainFlow</h1>

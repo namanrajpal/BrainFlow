@@ -69,6 +69,7 @@ Your ONLY job is to generate rich, comprehensive elaboration documents using the
 
 RULES:
 - Call elaborate_node MULTIPLE TIMES to build up the document progressively.
+- The sections_json parameter must be a valid JSON string like: '[{"heading":"Section Title","content":"Multiple paragraphs of content here..."}]'
 - Each call should add 2-3 sections with RICH content (3-5 paragraphs per section).
 - Use different agent_name values for each call to show multi-agent collaboration:
   - First call: agent_name="Strategist" (Executive Summary, Why Now)
