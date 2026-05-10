@@ -46,24 +46,9 @@ You: *stares at wall of text*
 
 BrainFlow gives your AI a **canvas instead of a chat box**. The agent doesn't reply with text — it generates **interactive mind map nodes** that stream onto a visual graph in real-time.
 
-```
-                        ┌─────────────────┐
-                        │  🎯 AI Tools    │
-                        │  for Freelancers│
-                        └────────┬────────┘
-                 ┌───────────────┼───────────────┐
-                 │               │               │
-        ┌────────▼──────┐ ┌─────▼──────┐ ┌──────▼───────┐
-        │ 💡 Smart      │ │ 💡 Client  │ │ 💡 Time      │
-        │ Invoicing     │ │ Comms Hub  │ │ Tracking     │
-        └───┬───────┬───┘ └────────────┘ └──────────────┘
-            │       │
-    ┌───────▼──┐ ┌──▼──────────┐
-    │ ⚡ Stripe │ │ 📋 Auto-    │
-    │ dominates│ │ categorize  │
-    │ (risk)   │ │ expenses    │
-    └──────────┘ └─────────────┘
-```
+<p align="center">
+  <img src="frontend/public/solution-mindmap.png" alt="BrainFlow mind map: AI Tools for Freelancers branching into Smart Invoicing, Client Comms Hub, and Time Tracking, with red challenge nodes below" width="820" />
+</p>
 
 Every node streams in one-by-one. Every run generates a different structure. The UI **is** the output.
 
@@ -71,8 +56,19 @@ Every node streams in one-by-one. Every run generates a different structure. The
 
 ## Demo
 
-<!-- SCREENSHOT PLACEHOLDER: Full canvas with nodes blooming -->
-> 📸 **TODO: Add screenshot of full BrainFlow canvas with generated nodes**
+<p align="center">
+  <img src="demo/mindmap_generation.gif" alt="A topic streams into a full mind map, node by node" width="820" />
+  <br/>
+  <sub><strong>The Bloom</strong> — type a topic, watch the canvas grow</sub>
+</p>
+
+<p align="center">
+  <img src="demo/expand_an_idea.gif" alt="Clicking expand on a node adds child ideas underneath" width="820" />
+  <br/>
+  <sub><strong>The Deep Dive</strong> — click any node, hit Expand, more ideas stream in</sub>
+</p>
+
+> 🎥 Full walkthrough: [`demo/walkthrough.mp4`](demo/walkthrough.mp4)
 
 ### The Six Magic Moments
 
