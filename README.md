@@ -6,7 +6,7 @@
 <h1 align="center">BrainFlow</h1>
 
 <p align="center">
-  <strong>An AI brainstorming partner that thinks WITH you — on an infinite canvas.</strong>
+  <strong>An AI brainstorming partner that thinks WITH you, on an infinite canvas.</strong>
 </p>
 
 <p align="center">
@@ -344,13 +344,24 @@ The interface is not a container for AI output. **The interface IS the AI output
 ## Built For
 
 <p align="center">
-  <strong>🏆 Generative UI Global Hackathon: Agentic Interfaces</strong><br/>
+  <a href="https://seattle.aitinkerers.org/p/generative-ui-global-hackathon-agentic-interfaces">
+    <strong>🏆 Generative UI Global Hackathon: Agentic Interfaces</strong>
+  </a><br/>
   AI Tinkerers Seattle • May 9, 2026
 </p>
 
 <p align="center">
   Sponsored by Google DeepMind • CopilotKit
 </p>
+
+BrainFlow was built in one sitting for the [Generative UI Global Hackathon](https://seattle.aitinkerers.org/p/generative-ui-global-hackathon-agentic-interfaces) hosted by AI Tinkerers Seattle. The theme — **agentic interfaces** — asks: what happens when the agent doesn't just write to a chat box, but actually builds the UI you're looking at?
+
+The two open standards that make that possible are on full display here:
+
+- **[AG-UI Protocol](https://github.com/ag-ui-protocol/ag-ui)** — a streaming event protocol for agent-to-frontend communication. Every node, edge, score update, and clarifying question in BrainFlow arrives as an AG-UI event (`TOOL_CALL_START`, `TOOL_CALL_ARGS`, `TOOL_CALL_END`, `TEXT_MESSAGE_CONTENT`, `RUN_STARTED`, `RUN_FINISHED`). The agent's thinking is literally the wire format for the UI.
+- **[CopilotKit](https://github.com/CopilotKit/CopilotKit)** — the React bridge that speaks AG-UI fluently. `useCopilotAction` lets the agent call frontend tools as if they were its own; `useCopilotReadable` streams the canvas state back so the agent always knows what's on screen; `render` props turn tool calls into live UI previews while they execute. Zero custom SSE parsing, zero manual message plumbing.
+
+The backend is LangGraph bridged to AG-UI via `ag-ui-langgraph`, so the same canvas could be driven tomorrow by a completely different agent stack without the frontend knowing. That's the bet generative UI is making, and BrainFlow is a small proof of it.
 
 ---
 
