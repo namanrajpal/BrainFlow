@@ -47,7 +47,7 @@ You: *stares at wall of text*
 BrainFlow gives your AI a **canvas instead of a chat box**. The agent doesn't reply with text — it generates **interactive mind map nodes** that stream onto a visual graph in real-time.
 
 <p align="center">
-  <img src="frontend/public/solution-mindmap.png" alt="BrainFlow mind map: AI Tools for Freelancers branching into Smart Invoicing, Client Comms Hub, and Time Tracking, with red challenge nodes below" width="820" />
+  <img src="frontend/public/solution-mindmap2.png" alt="BrainFlow mind map: AI Tools for Freelancers branching into Smart Invoicing, Client Comms Hub, and Time Tracking, with red challenge nodes below" width="820" />
 </p>
 
 Every node streams in one-by-one. Every run generates a different structure. The UI **is** the output.
